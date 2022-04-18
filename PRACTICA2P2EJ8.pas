@@ -7,22 +7,38 @@ program p2ej8;
 	procedure productosBaratos(num:integer; codigo:integer; var codigo2, codigo1, min2, min1, aux: integer);
 	
 	begin
-		
-		if ((num < min2)and(aux=0)) then
-		begin
-			min2:=num;
-			aux:=min2;
-			codigo2:=codigo;
-			write('Configurando los precios mas baratos1...'); //solo para debugging
-		end;
-		
-		if ((num < min1)and(num<aux)) then
+		//chequeamos el primer minimo, nos aseguramos que sea el primero usando a aux como referencia
+		if ((num < min1)and(aux=0)) then
 		begin
 			min1:=num;
-			aux:=0;
+			aux:=min1;
 			codigo1:=codigo;
-			write('Configurando los precios mas baratos2...'); // solo para debugging
+			write('Configurando los precios mas baratos1...');
 		end;
+		
+		// ya que ahora aux es distinto de 0, el segundo minimo que comparemos puede ser:
+		// 1. Mas chico que el primer minimo que calculamos.
+		// 2. Mas grande que el primer minimo que calculamos.
+		// Si fuera el primer caso, quiere decir que el numero que hayamos deberia ser el min1 y el anterior el min2
+		// Si fuera el segundo caso, quiere decir que el primer minimo sigue siendo el mas chico, y el que acabamos de calcular, debera ser el segundo, por lo menos hasta que aparezca un numero aun mas chico
+		if ((num < min2)and(num<aux)) then
+		begin
+			min1:=num;
+			min2:=aux;
+			codigo2:=codigo;
+			aux:=0;
+			write('Configurando los precios mas baratos2...');
+		end;
+		
+		if ((num < min2)and(num>aux)) then
+		begin
+			min2:=num;
+			aux:=0;
+			codigo2:=codigo;
+			write('Configurando los precios mas baratos2...');
+		end;
+		
+		
 		
 					
 	end;
