@@ -13,7 +13,7 @@ program p2ej8;
 			min2:=num;
 			aux:=min2;
 			codigo2:=codigo;
-			write('Configurando los precios mas baratos1...');
+			write('Configurando los precios mas baratos1...'); //solo para debugging
 		end;
 		
 		if ((num < min1)and(num<aux)) then
@@ -21,7 +21,7 @@ program p2ej8;
 			min1:=num;
 			aux:=0;
 			codigo1:=codigo;
-			write('Configurando los precios mas baratos2...');
+			write('Configurando los precios mas baratos2...'); // solo para debugging
 		end;
 		
 					
