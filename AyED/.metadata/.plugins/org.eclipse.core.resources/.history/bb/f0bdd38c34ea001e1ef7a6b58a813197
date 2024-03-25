@@ -1,0 +1,22 @@
+package practica1.ejercicio8;
+
+import java.util.LinkedList;
+import java.util.List;
+
+public class Queue{
+	
+	public static void main(String[] args) {
+		List lista_vinos = new LinkedList();
+		 lista_vinos.add(new Vino("Mendoza", "Claroscuro", 2022));
+		 lista_vinos.add(new Vino("Mendoza", "Gran Matilda", 2018));
+		 lista_vinos.add(3);
+		 lista_vinos.add("Bodega Azul - 2017");
+		 while (!lista_vinos.isEmpty()) {
+		 Object vino_actual = lista_vinos.get(0);
+		 System.out.println("Catando: "+ vino_actual);
+		 lista_vinos.remove(0);
+		 }
+
+	}
+	
+}

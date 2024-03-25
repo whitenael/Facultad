@@ -1,0 +1,16 @@
+package practica1.ejercicio8;
+
+import java.util.Iterator;
+import java.util.NoSuchElementException;
+
+public class Sequence<Item> implements Iterable<Item> {
+	private int n; // number of elements on list
+	
+	public boolean isEmpty() {
+		return first == null;
+	}
+
+	public int size() {
+		return n;
+	}
+}
