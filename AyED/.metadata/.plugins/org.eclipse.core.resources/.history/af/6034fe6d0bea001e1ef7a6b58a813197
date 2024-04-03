@@ -1,9 +1,0 @@
-package practica1.ejercicio7;
-
-public class Estudiante {
-	
-	private String nombre;
-	private Strig apellido;
-	private String comision;
-	
-}

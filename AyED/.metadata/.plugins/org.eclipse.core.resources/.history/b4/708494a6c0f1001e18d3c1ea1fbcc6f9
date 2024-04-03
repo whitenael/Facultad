@@ -1,0 +1,10 @@
+import practica2.BinaryTree;
+
+public class Util {
+	
+	
+	public BinaryTree<T> generarArbol(){
+		
+	}
+	
+}

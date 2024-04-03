@@ -1,9 +1,0 @@
-package practica1.ejercicio8;
-
-import java.util.Collections;
-
-public class Queue<T> implements Collections{
-
-			
-
-}

@@ -1,66 +1,85 @@
-program testTextoBinario;
+program ConvertirTextoABinario;
 
-type 
-	registroVotos = record
-		codProv : integer;
-		codLoc : integer;
-		nroMesa : integer;
-		cantVotos : integer;
-		desc : string;
-	end;
-	
-	archivoVotos = file of registroVotos;
+type
+    archivoTexto = text; // Definición del tipo de archivo de texto
+    archivoBinario = file of string; // Definición del tipo de archivo binario
 
+procedure ConvertirABinario(nomArchTexto: string; nomArchBinario: string);
 var
+    archTexto: archivoTexto;
+    archBinario: archivoBinario;
+    linea: string;
+begin
+    // Abre el archivo de texto para lectura
+    assign(archTexto, nomArchTexto);
+    reset(archTexto);
 
-	opc : Byte;
-	nomArch, nomArch2 : string;
-	archivo : tArchivoVotos;
-	carga : text;
-	votos : registroVotos;
+    // Crea el archivo binario para escritura
+    assign(archBinario, nomArchBinario);
+    rewrite(archBinario);
+
+    // Lee línea por línea del archivo de texto y escribe en el archivo binario
+    while not eof(archTexto) do
+    begin
+        readln(archTexto, linea);
+        write(archBinario, linea);
+    end;
+
+    // Cierra los archivos
+    close(archTexto);
+    close(archBinario);
+
+    writeln('Archivo de texto convertido a binario exitosamente.');
+end;
+
+procedure ConvertirATexto(nomArchBinario: string; nomArchTexto: string);
+var
+    archTexto: archivoTexto;
+    archBinario: archivoBinario;
+    linea: string;
+begin
+    // Abre el archivo binario para lectura
+    assign(archBinario, nomArchBinario);
+    reset(archBinario);
+
+    // Crea el archivo de texto para escritura
+    assign(archTexto, nomArchTexto);
+    rewrite(archTexto);
+
+    // Lee cada registro del archivo binario y escribe en el archivo de texto
+    while not eof(archBinario) do
+    begin
+        read(archBinario, linea);
+        writeln(archTexto, linea);
+    end;
+
+    // Cierra los archivos
+    close(archTexto);
+    close(archBinario);
+
+    writeln('Archivo binario convertido a texto exitosamente.');
+end;
+
+procedure LeerArchivoBinario(nomArchBinario: string);
+var    
+    archBinario: archivoBinario;
+    linea: string;
+begin
+    // Abre el archivo binario para lectura
+    assign(archBinario, nomArchBinario);
+    reset(archBinario);
+    
+    // Lee cada registro del archivo binario y escribe en consola
+    while not eof(archBinario) do
+    begin
+        read(archBinario, linea);
+        writeln(linea);
+    end;
+
+    // Cierra los archivos    
+    close(archBinario);   
+end;
 
 begin
-	
-	writeln('Votos');}
-	writeln;
-	writeln('0. Terminar Programa');
-	writeln('1. Crear un archivo binario desde un archivo de texto');
-	writeln('2. Abrir un archivo binario y exportar a texto. ')
-	repeat
-		write('Ingrese el numero de opcion: ');
-		if (opc=1) or (opc=2) then begin
-			writeln;
-			write('Nombre del archivo de votos: ');
-			readln(nomArch);
-			assign(arch, nomArch);
-		end;
-	
-		case opc of 
-			1: begin
-				write('Nombre del archivo de carga: ');
-				readln(nomArch2);
-				assign(carga, nomArch2);
-				reset(carga);
-				rewrite(arch);
-				while (not eof(carga)) do begin
-					readln(carga, votos.codProv, votos.codLoc, votos.nroMesa, votos.cantVotos, votos.desc);
-					write(arch, votos);
-				end;
-				write('Archivo cargado.');
-				readln;
-				close(arch); close(carga);
-			end;
-			2: begin
-				write('Nombre del archivo de texto: ');
-				readln(nomArch2);
-				assign(carga, nomArch2);
-				reset(arch);
-				rewrite(carga);
-				while (not eof(arch)) do begin
-					read(arch, votos);
-					writeln(carga, votos.codProv, ' ', votos.codLoc, ' ', votos.nroMesa, ' ', votos.cantVotos, ' ', votos.desc);
-				end;
-				close(arch); close(carga);
-			end;
-	Until (opc = 0);	
+    LeerArchivoBinario('archivo.bin');
 end.

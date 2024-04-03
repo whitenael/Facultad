@@ -1,0 +1,60 @@
+package resources;
+
+import practica2.BinaryTree;
+
+public class TreeTraversal<T> {
+
+    private static final int INDENT_SIZE = 4;
+    
+    
+
+    public void inOrderTraversal(BinaryTree<T> node, int depth) {
+        if (node != null) {
+            inOrderTraversal(node.getRightChild(), depth + 1);
+            printNode(node, depth);
+            inOrderTraversal(node.getLeftChild(), depth + 1);
+        }
+    }
+
+    public void preOrderTraversal(BinaryTree<T> node, int depth) {
+        if (node != null) {
+            printNode(node, depth);
+            preOrderTraversal(node.getLeftChild(), depth + 1);
+            preOrderTraversal(node.getRightChild(), depth + 1);
+        }
+    }
+
+    public void postOrderTraversal(BinaryTree<T> node, int depth) {
+        if (node != null) {
+            postOrderTraversal(node.getLeftChild(), depth + 1);
+            postOrderTraversal(node.getRightChild(), depth + 1);
+            printNode(node, depth);
+        }
+    }
+
+    private void printNode(BinaryTree<T> node, int depth) {
+        for (int i = 0; i < depth * INDENT_SIZE; i++) {
+            System.out.print(" ");
+        }
+        System.out.println(node.getData());
+    }
+
+    public static void main(String[] args) {
+        BinaryTree<Integer> root = new BinaryTree<>(1);
+        root.addLeftChild(new BinaryTree<>(2));
+        root.addRightChild(new BinaryTree<>(3));
+        root.getLeftChild().addLeftChild(new BinaryTree<>(4));
+        root.getLeftChild().addRightChild(new BinaryTree<>(5));
+        root.getRightChild().addLeftChild(new BinaryTree<>(6));
+        root.getRightChild().addRightChild(new BinaryTree<>(7));
+
+        TreeTraversal<Integer> traversal = new TreeTraversal<>();
+
+        System.out.println("Inorden:");
+        traversal.inOrderTraversal(root, 0);
+        System.out.println("\nPreorden:");
+        traversal.preOrderTraversal(root, 0);
+        System.out.println("\nPostorden:");
+        traversal.postOrderTraversal(root, 0);
+    }
+}

@@ -1,9 +1,0 @@
-package practica1.ejercicio8;
-
-public class Queue<T> extends  {
-	 
-	public Queue() {
-		
-	}
-	
-}

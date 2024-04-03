@@ -1,0 +1,19 @@
+package practica2.ejercicio2;
+import practica2.BinaryTree;
+
+public class Ejercicio2 {
+	
+	public static void main(String[] args) {
+		BinaryTree<Integer> tree = new BinaryTree(3);
+		
+		tree.addLeftChild(tree);
+		tree.addRightChild(tree);	
+		
+		System.out.println(tree.getData());
+		System.out.println(tree.getLeftChild().getData());
+		System.out.println(tree.getRightChild().getData());
+		
+		
+	}
+
+}

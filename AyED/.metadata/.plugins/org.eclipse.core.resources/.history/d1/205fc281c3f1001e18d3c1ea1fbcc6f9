@@ -1,0 +1,24 @@
+import practica2.BinaryTree;
+
+public class Util {
+	
+	
+	// genera arbol de longitud 10 desde la raiz
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	public BinaryTree<Integer> generarArbolEnteros(int length){			
+		
+		if (length == 0)
+			return null;
+		
+		BinaryTree<Integer> root = new BinaryTree(getRandomNumber(1, 1000));
+		root.addLeftChild(generarArbolEnteros(length-1));
+		
+		
+		
+	}
+	
+	public int getRandomNumber(int min, int max) {
+	    return (int) ((Math.random() * (max - min)) + min);
+	}
+	
+}

@@ -1,0 +1,15 @@
+package practica2.ejercicio2;
+import practica2.BinaryTree;
+import practica1.ejercicio7.Util;
+
+public class Ejercicio2 {
+	
+	public static void main(String[] args) {
+		BinaryTree<Integer> tree = 
+		
+		
+	}
+	
+	
+
+}
