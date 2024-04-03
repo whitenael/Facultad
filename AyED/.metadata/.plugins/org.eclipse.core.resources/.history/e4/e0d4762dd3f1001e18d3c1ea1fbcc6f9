@@ -1,0 +1,25 @@
+package practica2.ejercicio2;
+import practica2.BinaryTree;
+import static resources.Util.generarArbolEnteros;
+import resources.TreeTraversal;
+
+import java.util.Random;
+
+public class Ejercicio2 {
+	
+	public static void main(String[] args) {		
+		BinaryTree<Integer> tree = generarArbolEnteros(3);
+		BinaryTree<Integer> eert = tree.espejo();
+		
+		TreeTraversal<Integer> tt = new TreeTraversal<Integer>();
+		tt.visualize(tree);
+		tt.visualize(eert);
+		
+		
+		
+		
+	}
+	
+	
+
+}

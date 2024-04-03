@@ -13,7 +13,7 @@ public class Util {
 		if (length == 0)
 			return null;
 						
-		BinaryTree<Integer> br = new BinaryTree(getRandomNumber(1, 10000));
+		BinaryTree<Integer> br = new BinaryTree(getRandomNumber(1, 10));
 		br.addLeftChild(generarArbolEnteros(length-1));
 		br.addRightChild(generarArbolEnteros(length-1));
 		

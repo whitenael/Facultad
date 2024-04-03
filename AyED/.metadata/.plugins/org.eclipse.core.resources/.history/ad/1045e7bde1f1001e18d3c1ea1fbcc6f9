@@ -1,0 +1,20 @@
+package practica2.ejercicio3;
+
+import com.sun.tools.javac.util.List;
+
+import practica2.BinaryTree;
+
+public class ContadorArbol {
+	public BinaryTree<Integer> tree;
+	
+	public ArrayList<Integer> numerosPares(BinaryTree<Integer> tree, List<Integer> lista) {					
+		if (this.tree != null) {
+			numerosPares(tree.getLeftChild(), lista);
+			if (tree.getData() %2 == 0)
+				lista.add(tree.getData());
+			
+				
+		}
+	}
+	
+}
