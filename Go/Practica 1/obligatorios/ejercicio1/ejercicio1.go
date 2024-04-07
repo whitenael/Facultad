@@ -29,11 +29,12 @@ func convertirTexto(s string, index int) string {
 	rs := []rune(s)   // creamos una runa de la frase para recorrerla
 
 	// recorremos la frase desde el indice de inicio hasta el largo de la frase a reemplazar
-
-	for i := index; i < len(str); i++ {
+	for i := index; i < index+len(ns); i++ {
 		if unicode.IsLower(rs[i]) {
-			ns[i] = unicode.ToLower(ns[i])
-			rs[i] = ns[i]
+			ns[i-index] = unicode.ToLower(ns[i-index])
+			rs[i] = ns[i-index]
+		} else {
+			rs[i] = ns[i-index]
 		}
 	}
 
@@ -41,6 +42,6 @@ func convertirTexto(s string, index int) string {
 }
 
 func main() {
-	t := "hoy es jueves"
+	t := "hoy es JUEVES"
 	fmt.Println(procesarTexto(t))
 }
