@@ -3,12 +3,13 @@ package main
 import (
 	"fmt"
 	"strings"
+	"unicode"
 )
 
 func modificarTexto(src, target, replace string) string {
 
 	// chequeamos que se contenga la palabra
-	ok := strings.Contains(src, target)
+	ok := strings.Contains(strings.ToUpper(src), strings.ToUpper(target))
 	ret := src
 
 	if ok == true {
@@ -50,6 +51,8 @@ func convertirTexto(src string, target string, replace string) string {
 
 	// Reemplazamos la palabra en la cadena original
 	for i := 0; i < len(indexes); i++ {
+		// cambiamos la capitalizacion del replace
+		replace = modificarCapitalizacion(src, target, replace, indexes[i])
 		mod = nsrc[:indexes[i]] + replace + nsrc[indexes[i]+len(target):]
 		nsrc = mod
 	}
@@ -57,7 +60,24 @@ func convertirTexto(src string, target string, replace string) string {
 	return mod
 }
 
+func modificarCapitalizacion(src, target, replace string, index int) string {
+	nsrc := src[index : index+len(target)]       // creamos un nuevo string de la palabra target
+	nsrc_rune := []rune(nsrc)                    // creamos runas para recorrer todo, esto se debe ya que las runas y los strings asignan espacio a los caracteres unicode de forma diferente
+	nreplace := []rune(strings.ToUpper(replace)) // pasamos el replace a mayusculas para formatear todo a partir de minusculas
+
+	for i, v := range nsrc_rune {
+		ok := unicode.IsLower(v)
+		if ok == true {
+			nreplace[i] = unicode.ToLower(nreplace[i])
+		}
+	}
+
+	return string(nreplace)
+}
+
 func main() {
-	str := "Hoy es miércoles, de nuevo miércoles miércoles"
+	str := "qqqqqÁ miéRcoLes sfÉsgíó~ñdfdhdhh MiÉRcolEs cgdgdg maRTes miéRcOLÉs miéRcOLEssdsafssfs  .... MMiérCOLES jj"
 	fmt.Println(modificarTexto(str, "miércoles", "automóvil"))
+	//fmt.Println(obtenerIndicencias(str, "miércoles"))
+	//fmt.Println(modificarCapitalizacion(str, "miércoles", "automóvil", 39))
 }
