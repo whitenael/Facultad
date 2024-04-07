@@ -53,6 +53,10 @@ func convertirTexto(src string, target string, replace string) string {
 	for i := 0; i < len(indexes); i++ {
 		// cambiamos la capitalizacion del replace
 		replace = modificarCapitalizacion(src, target, replace, indexes[i])
+		// partimos la frase en 3 partes:
+		// la primera que va desde el inicio hasta el inicio de la incidencia
+		// la segunda sera la indicencia modificada por la palabra replace (con la capitalizacion modificada segun corresponda)
+		// y la tercera sera el final de la palabra target hasta el final de la frase (se deberia agregar espacio extra si la palabra replace es mas larga que el target)
 		mod = nsrc[:indexes[i]] + replace + nsrc[indexes[i]+len(target):]
 		nsrc = mod
 	}
@@ -76,8 +80,9 @@ func modificarCapitalizacion(src, target, replace string, index int) string {
 }
 
 func main() {
-	str := "qqqqqÁ miéRcoLes sfÉsgíó~ñdfdhdhh MiÉRcolEs cgdgdg maRTes miéRcOLÉs miéRcOLEssdsafssfs  .... MMiérCOLES jj"
-	fmt.Println(modificarTexto(str, "miércoles", "automóvil"))
+	//str := "qqqqqÁ miéRcoLes sfÉsgíó~ñdfdhdhh MiÉRcolEs cgdgdg maRTes miéRcOLÉs miéRcOLEssdsafssfs  .... MMiérCOLES jj"
+	str := "hoy es JueVes"
+	fmt.Println(modificarTexto(str, "jueves", "martes"))
 	//fmt.Println(obtenerIndicencias(str, "miércoles"))
 	//fmt.Println(modificarCapitalizacion(str, "miércoles", "automóvil", 39))
 }
