@@ -3,45 +3,61 @@ package main
 import (
 	"fmt"
 	"strings"
-	"unicode"
 )
 
-const str = "MARTES"
-const str_replace = "JUEVES"
+func modificarTexto(src, target, replace string) string {
 
-func procesarTexto(f string) string {
+	// chequeamos que se contenga la palabra
+	ok := strings.Contains(src, target)
+	ret := src
 
-	s := strings.ToUpper(f)                // pasamos la frase a uppercase
-	index := strings.Index(s, str_replace) // buscamos el indice donde empieza la palabra a reemplazar
-	var ns string                          // creamos una variable para almacenar la frase modificada
-
-	// si el indice es diferente de -1, significa que la frase contiene el str a reemplazar
-
-	if index != -1 {
-		ns = convertirTexto(f, index)
+	if ok == true {
+		ret = convertirTexto(src, target, replace)
 	}
 
-	return ns
+	return ret
+
 }
 
-func convertirTexto(s string, index int) string {
-	ns := []rune(str) // creamos una runa a partir del texto a reemplazar
-	rs := []rune(s)   // creamos una runa de la frase para recorrerla
+func obtenerIndicencias(phrase, word string) []int {
+	var indices []int
+	lowerCaseWord := strings.ToLower(word)
+	lowerCasePhrase := strings.ToLower(phrase)
 
-	// recorremos la frase desde el indice de inicio hasta el largo de la frase a reemplazar
-	for i := index; i < index+len(ns); i++ {
-		if unicode.IsLower(rs[i]) {
-			ns[i-index] = unicode.ToLower(ns[i-index])
-			rs[i] = ns[i-index]
-		} else {
-			rs[i] = ns[i-index]
+	index := 0
+	for {
+		i := strings.Index(lowerCasePhrase[index:], lowerCaseWord)
+		if i == -1 {
+			break
 		}
+		indices = append(indices, index+i)
+		index += i + len(word)
 	}
 
-	return string(rs)
+	return indices
+}
+
+func convertirTexto(src string, target string, replace string) string {
+	// Buscamos la palabra a reemplazar en la cadena original
+	indexes := obtenerIndicencias(src, target)
+	nsrc := src
+	var mod string
+
+	// Si no encontramos la palabra, devolvemos la cadena original sin cambios
+	if len(indexes) == 0 {
+		return src
+	}
+
+	// Reemplazamos la palabra en la cadena original
+	for i := 0; i < len(indexes); i++ {
+		mod = nsrc[:indexes[i]] + replace + nsrc[indexes[i]+len(target):]
+		nsrc = mod
+	}
+
+	return mod
 }
 
 func main() {
-	t := "hoy es JUEVES"
-	fmt.Println(procesarTexto(t))
+	str := "Hoy es miércoles, de nuevo miércoles miércoles"
+	fmt.Println(modificarTexto(str, "miércoles", "automóvil"))
 }
