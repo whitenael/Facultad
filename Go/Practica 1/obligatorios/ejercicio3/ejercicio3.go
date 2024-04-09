@@ -8,7 +8,6 @@ import (
 
 func modificarTexto(src, target string) string {
 
-	// chequeamos que se contenga la palabra
 	ok := strings.Contains(strings.ToUpper(src), strings.ToUpper(target))
 	ret := src
 
@@ -19,38 +18,36 @@ func modificarTexto(src, target string) string {
 	return ret
 }
 
-func obtenerIndicencias(phrase, word string) []int {
+func obtenerIndicencias(src, target string) []int {
 	var indices []int
-	lowerCaseWord := strings.ToLower(word)
-	lowerCasePhrase := strings.ToLower(phrase)
+	lcTarget := strings.ToLower(target)
+	lcSrc := strings.ToLower(src)
 
 	index := 0
 	for {
-		i := strings.Index(lowerCasePhrase[index:], lowerCaseWord)
+		i := strings.Index(lcSrc[index:], lcTarget)
 		if i == -1 {
 			break
 		}
 		indices = append(indices, index+i)
-		index += i + len(word)
+		index += i + len(target)
 	}
 
 	return indices
 }
 
 func convertirTexto(src, target string) string {
-	// Buscamos la palabra a reemplazar en la cadena original
 	indexes := obtenerIndicencias(src, target)
 	nsrc := src
 	var mod string
 
-	// Si no encontramos la palabra, devolvemos la cadena original sin cambios
 	if len(indexes) == 0 {
 		return src
 	}
 
-	// Reemplazamos la palabra en la cadena original
+	// Se reutiliza la logica anterior
+	// Para este caso, esta metodologia resulta ineficiente, ya que se reemplaza la palabra por una nueva cuando podria cambiarse caracter por caracter a medida que se recorre
 	for i := 0; i < len(indexes); i++ {
-		// cambiamos la capitalizacion del replace
 		target = modificarCapitalizacion(src, target, indexes[i])
 		mod = nsrc[:indexes[i]] + target + nsrc[indexes[i]+len(target):]
 		nsrc = mod
@@ -60,12 +57,14 @@ func convertirTexto(src, target string) string {
 }
 
 func modificarCapitalizacion(src, target string, index int) string {
-	nsrc := src[index : index+len(target)]     // creamos un nuevo string de la palabra target
-	nsrc_rune := []rune(nsrc)                  // creamos runas para recorrer todo, esto se debe ya que las runas y los strings asignan espacio a los caracteres unicode de forma diferente
-	ntarget := []rune(strings.ToUpper(target)) // pasamos el replace a mayusculas para formatear todo a partir de minusculas
+	nsrc := src[index : index+len(target)]
+	nsrc_rune := []rune(nsrc)
+	ntarget := []rune(strings.ToUpper(target))
 
+	// ajuste para la modificacion de capitalizacion, ahora en lugar de copiarla, la invierte
 	for i, v := range nsrc_rune {
 		ok := unicode.IsLower(v)
+		// si es minuscula, la pasa a mayuscula, y viceversa
 		if ok == true {
 			ntarget[i] = unicode.ToUpper(ntarget[i])
 		} else {
@@ -77,9 +76,6 @@ func modificarCapitalizacion(src, target string, index int) string {
 }
 
 func main() {
-	//str := "qqqqqÁ miéRcoLes sfÉsgíó~ñdfdhdhh MiÉRcolEs cgdgdg maRTes miéRcOLÉs miéRcOLEssdsafssfs  .... MMiérCOLES jj"
 	str := "Parece peqUEño, pero no es tan pequeÑo el PEQUEÑO"
 	fmt.Println(modificarTexto(str, "PEQUEÑO"))
-	//fmt.Println(obtenerIndicencias(str, "miércoles"))
-	//fmt.Println(modificarCapitalizacion(str, "miércoles", "automóvil", 39))
 }
