@@ -63,13 +63,7 @@ func modificarCapitalizacion(src, target string, index int) string {
 
 	// ajuste para la modificacion de capitalizacion, ahora en lugar de copiarla, la invierte
 	for i, v := range nsrc_rune {
-		ok := unicode.IsLower(v)
-		// si es minuscula, la pasa a mayuscula, y viceversa
-		if ok == true {
-			ntarget[i] = unicode.ToUpper(ntarget[i])
-		} else {
-			ntarget[i] = unicode.ToLower(ntarget[i])
-		}
+		ntarget[i] = unicode.SimpleFold(v)
 	}
 
 	return string(ntarget)
