@@ -1,7 +1,9 @@
 package main
 
 import (
+	"bufio"
 	"fmt"
+	"os"
 	"strings"
 	"unicode"
 )
@@ -74,8 +76,9 @@ func modificarCapitalizacion(src, target, replace string, index int) string {
 }
 
 func main() {
-	str := "qqqqqÁ miéRcoLes sfÉsgíó~ñdfdhdhh MiÉRcolEs cgdgdg maRTes miéRcOLÉs miéRcOLEssdsafssfs  .... MMiérCOLES jj"
-	fmt.Println(modificarTexto(str, "miércoles", "automóvil"))
-	//fmt.Println(obtenerIndicencias(str, "miércoles"))
-	//fmt.Println(modificarCapitalizacion(str, "miércoles", "automóvil", 39))
+	in := bufio.NewReader(os.Stdin)
+	line, _ := in.ReadString('\n')
+	// comando para ejecutar desde la terminal -> 
+	// go run ejercicio2.go < rp.input02.txt
+	fmt.Println(modificarTexto(line, "miércoles", "automóvil"))
 }
