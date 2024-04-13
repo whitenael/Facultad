@@ -1,0 +1,15 @@
+package practica2.ejercicio6;
+import resources.Util;
+
+public class Ejercicio6 {
+
+	public static void main(String[] args) {
+
+		BinaryTree<Integer> tree = 
+		Transformacion tr = new Transformacion();
+		
+		tr.InOrder();
+		
+	}
+
+}

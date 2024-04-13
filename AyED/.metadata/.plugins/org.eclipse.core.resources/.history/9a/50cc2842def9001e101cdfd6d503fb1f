@@ -1,0 +1,24 @@
+package practica2.ejercicio6;
+
+import practica2.BinaryTree;
+
+public class Transformacion {
+	public BinaryTree<Integer> tree;
+	
+	public Transformacion(){}
+	
+	public Transformacion(BinaryTree<Integer> tree){
+		this.tree = tree;
+	}
+	
+	public BinaryTree<Integer> suma(){
+				
+		if (tree == null)
+			return null;
+		
+		
+		
+		return this.tree;
+	}
+	
+

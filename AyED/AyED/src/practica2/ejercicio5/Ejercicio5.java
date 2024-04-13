@@ -13,7 +13,9 @@ public class Ejercicio5 {
 		
 		tt.visualize(tree);
 		System.out.println();			
-		System.out.println(prof.sumaElementosProfundidad(3));
+		prof.queueExample(tree);
+		
+		
 		
 	}
 

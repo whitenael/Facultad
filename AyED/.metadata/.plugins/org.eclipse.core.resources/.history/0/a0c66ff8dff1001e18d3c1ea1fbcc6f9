@@ -1,7 +1,0 @@
-package practica2.ejercicio3;
-
-import practica2.BinaryTree;
-
-public class ContadorArbol {
-	public BinaryTree<T> tree;
-}
