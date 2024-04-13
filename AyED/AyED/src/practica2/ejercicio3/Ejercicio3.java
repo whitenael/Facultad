@@ -12,7 +12,7 @@ public class Ejercicio3 {
 		
 		tt.visualize(cont.getTree());		
 		
-		for (Integer i : cont.numerosPares()) {
+		for (Integer i : cont.numerosPares(0)) {
 			System.out.println(i);
 		}
 		
