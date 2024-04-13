@@ -1,64 +1,84 @@
 package main
 
 import (
+	"bufio"
 	"fmt"
+	"os"
 	"strings"
 	"unicode"
 )
 
-const str = "AUTOMÓVIL"
-const str_replace = "MIÉRCOLES"
+// Mismo funcionamiento que el ejercicio1, solamente que ahora esta parametrizado
 
-func procesarTexto(f string) string {
+func modificarTexto(src, target, replace string) string {
 
-	indexes := encontrarOcurrencias(str_replace, f) // buscamos el indice donde empieza la palabra a reemplazar
-	var ns string = f                               // creamos una variable para almacenar la frase modificada
+	// chequeamos que se contenga la palabra
+	ok := strings.Contains(strings.ToLower(src), strings.ToLower(target))
+	ret := src
 
-	// si el indice es diferente de -1, significa que la frase contiene el str a reemplazar
-
-	if len(indexes) > 0 {
-		for i := 0; i < len(indexes); i++ {
-			ns = convertirTexto(f, indexes[i], []rune(str))
-			fmt.Println(indexes[i])
-		}
+	if ok == true {
+		ret = convertirTexto(src, target, replace)
 	}
 
-	return ns
+	return ret
+
 }
 
-func encontrarOcurrencias(word, phrase string) []int {
+func obtenerIndicencias(src, target string) []int {
 	var indices []int
-	lowerCaseWord := strings.ToLower(word)
-	lowerCasePhrase := strings.ToLower(phrase)
+	lcTarget := strings.ToLower(target)
+	lcSrc := strings.ToLower(src)
 
 	index := 0
 	for {
-		i := strings.Index(lowerCasePhrase[index:], lowerCaseWord)
+		i := strings.Index(lcSrc[index:], lcTarget)
 		if i == -1 {
 			break
 		}
 		indices = append(indices, index+i)
-		index += i + len(word)
+		index += i + len(target)
 	}
 
 	return indices
 }
 
-func convertirTexto(s string, index int, ns []rune) string {
-	rs := []rune(s) // creamos una runa de la frase para recorrerla
+func convertirTexto(src string, target string, replace string) string {
+	indexes := obtenerIndicencias(src, target)
+	nsrc := src
+	var mod string
 
-	// recorremos la frase desde el indice de inicio hasta el largo de la frase a reemplazar
-	for i := index; i < index+len(ns)-2; i++ {
-		if unicode.IsLower(rs[i]) {
-			ns[i-index] = unicode.ToLower(ns[i-index])
-		}
-		rs[i] = ns[i-index]
+	if len(indexes) == 0 {
+		return src
 	}
 
-	return string(rs)
+	for i := 0; i < len(indexes); i++ {
+		replace = modificarCapitalizacion(src, target, replace, indexes[i])
+		mod = nsrc[:indexes[i]] + replace + nsrc[indexes[i]+len(target):]
+		nsrc = mod
+	}
+
+	return mod
+}
+
+func modificarCapitalizacion(src, target, replace string, index int) string {
+	nsrc := src[index : index+len(target)]
+	nsrc_rune := []rune(nsrc)
+	nreplace := []rune(strings.ToUpper(replace))
+
+	for i, v := range nsrc_rune {
+		ok := unicode.IsLower(v)
+		if ok == true {
+			nreplace[i] = unicode.ToLower(nreplace[i])
+		}
+	}
+
+	return string(nreplace)
 }
 
 func main() {
-	t := "hoy es miércoles de miércoles"
-	fmt.Println(procesarTexto(t))
+	in := bufio.NewReader(os.Stdin)
+	line, _ := in.ReadString('\n')
+	// comando para ejecutar desde la terminal -> 
+	// go run ejercicio2.go < rp.input02.txt
+	fmt.Println(modificarTexto(line, "miércoles", "automóvil"))
 }
