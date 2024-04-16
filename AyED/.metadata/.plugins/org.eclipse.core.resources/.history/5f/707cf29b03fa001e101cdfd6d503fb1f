@@ -1,0 +1,70 @@
+package practica2.ejercicio7;
+
+import practica2.BinaryTree;
+
+public class Arboles {
+
+	private BinaryTree<Integer> tree;
+	
+	public Arboles() {}
+	
+	public Arboles(BinaryTree<Integer> tree) {
+		this.tree = tree;
+	}	
+
+	public boolean isLeftTree(int num) {
+		return false;
+	}
+	
+	public BinaryTree<Integer> getTree() {
+		return tree;
+	}
+
+	public void setTree(BinaryTree<Integer> tree) {
+		this.tree = tree;
+	}
+
+	public boolean buscarNumero(int num) {
+		return buscarNumeroRecursivo(this.tree, num);
+	}
+
+	private boolean buscarNumeroRecursivo(BinaryTree<Integer> tree, int num) 
+	{
+
+		if (tree == null)
+			return false;
+
+		if (tree.getData() == num)
+			return true;
+
+		return buscarNumeroRecursivo(tree.getLeftChild(), num) || buscarNumeroRecursivo(tree.getRightChild(), num);
+	}
+	
+	public int getIndexByInOrder(int num) {
+	    if (root == null)
+	        return -1; // Si el árbol está vacío
+
+	    // Utilizamos un array de un elemento para poder modificar el valor del índice dentro del método recursivo
+	    int[] index = {0};
+	    getIndexByInOrderRec(this.tree, num, index);
+	    return index[0]; // Retornamos el valor del índice
+	}
+
+	private void getIndexByInOrderRec(BinaryTree<Integer> node, int num, int[] index) {
+	    if (node == null)
+	        return;
+
+	    // Primero recorremos el subárbol izquierdo
+	    getIndexByInOrderRec(node.getLeftChild(), num, index);
+
+	    // Incrementamos el índice al visitar cada nodo
+	    index[0]++;
+
+	    // Si encontramos el nodo buscado, no necesitamos seguir recorriendo el árbol
+	    if (node.getData() == num)
+	        return;
+
+	    // Luego recorremos el subárbol derecho
+	    getIndexByInOrderRec(node.getRightChild(), num, index);
+	}
+}

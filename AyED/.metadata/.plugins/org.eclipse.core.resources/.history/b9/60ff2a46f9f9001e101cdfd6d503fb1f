@@ -1,0 +1,30 @@
+package practica2.ejercicio7;
+
+import practica2.BinaryTree;
+
+public class Arboles {
+
+	public Arboles() {}
+	
+	public Arboles(BinaryTree<Integer> tree) {
+		this.tree = tree;
+	}
+	
+	private BinaryTree<Integer> tree;
+
+	public boolean isLeftTree(int num) {
+
+		return false;
+	}
+
+	public boolean buscarNumero(BinaryTree<Integer> tree, int num) {
+
+		if (this.tree == null)
+			return false;
+
+		if (this.tree.getData() == num)
+			return true;
+
+		return buscarNumero(this.tree.getLeftChild(), num) || buscarNumero(this.tree.getRightChild(), num);
+	}
+}

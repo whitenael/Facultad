@@ -9,4 +9,7 @@
     <fullyQualifiedTypeName name="java.util.Collections"/>
     <fullyQualifiedTypeName name="java.util.Queue"/>
     <fullyQualifiedTypeName name="java.util.Iterator"/>
+    <fullyQualifiedTypeName name="practica2.ejercicio6.Transformacion"/>
+    <fullyQualifiedTypeName name="resources.Util"/>
+    <fullyQualifiedTypeName name="resources.TreeTraversal"/>
 </qualifiedTypeNameHistroy>

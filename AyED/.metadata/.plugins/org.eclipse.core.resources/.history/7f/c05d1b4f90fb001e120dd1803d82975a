@@ -1,0 +1,32 @@
+package practica2.ejercicio7;
+
+import practica2.BinaryTree;
+
+public class Arboles {
+
+	private BinaryTree<Integer> tree;
+	
+	public Arboles() {}
+	
+	public Arboles(BinaryTree<Integer> tree) {
+		this.tree = tree;
+	}	
+
+	public BinaryTree<Integer> getTree() {
+		return tree;
+	}
+
+	public void setTree(BinaryTree<Integer> tree) {
+		this.tree = tree;
+	}
+	
+	public boolean isLeftTree(int num) {
+		return false;
+	}
+	
+	public hasOneChildren(BinaryTree<Integer> node) {
+		if (!this.tree.isLeaf() & (!this.))
+	}	
+
+	
+}

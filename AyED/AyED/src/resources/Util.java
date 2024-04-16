@@ -1,5 +1,5 @@
 package resources;
-import java.util.Random;
+import java.util.LinkedList;
 
 import practica2.BinaryTree;
 
@@ -11,11 +11,34 @@ public class Util {
 	public static BinaryTree<Integer> generarArbolEnteros(int length){			
 		
 		if (length == 0)
-			return null;
+			return new BinaryTree<Integer>();
 						
 		BinaryTree<Integer> br = new BinaryTree(getRandomNumber(1, 10));
 		br.addLeftChild(generarArbolEnteros(length-1));
 		br.addRightChild(generarArbolEnteros(length-1));
+		
+		return br;
+		
+	}
+	
+	public static BinaryTree<Integer> generarArbolAleatorio(int length, LinkedList<Integer> numList){
+		
+		LinkedList<Integer> nums = new LinkedList<Integer>();
+		
+		if (length == 0)
+			return null;
+		
+		int rng = getRandomNumber(1, 100);
+		
+		while(nums.contains(rng)) {
+			rng = getRandomNumber(1, 100);
+		}
+					
+		BinaryTree<Integer> br = new BinaryTree<Integer>(rng);
+		if (getRandomNumber(1, 6) != 4)
+			br.addLeftChild(generarArbolAleatorio(length - 1, nums));
+		if (getRandomNumber(1, 6) != 4)
+			br.addRightChild(generarArbolAleatorio(length - 1, nums));
 		
 		return br;
 		

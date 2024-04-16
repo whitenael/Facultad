@@ -1,0 +1,56 @@
+package practica2.ejercicio7;
+
+import practica2.BinaryTree;
+
+public class Arboles {
+
+	private BinaryTree<Integer> tree;
+	
+	public Arboles() {}
+	
+	public Arboles(BinaryTree<Integer> tree) {
+		this.tree = tree;
+	}	
+
+	public boolean isLeftTree(int num) {
+		return false;
+	}
+	
+	public BinaryTree<Integer> getTree() {
+		return tree;
+	}
+
+	public void setTree(BinaryTree<Integer> tree) {
+		this.tree = tree;
+	}
+
+	public boolean buscarNumero(int num) {
+		return buscarNumeroRecursivo(this.tree, num);
+	}
+
+	private boolean buscarNumeroRecursivo(BinaryTree<Integer> tree, int num) 
+	{
+
+		if (tree == null)
+			return false;
+
+		if (tree.getData() == num)
+			return true;
+
+		return buscarNumeroRecursivo(tree.getLeftChild(), num) || buscarNumeroRecursivo(tree.getRightChild(), num);
+	}
+	
+	public int getIndiceNodo(int num) {
+		return getIndiceNodoInOrden(this.tree, num);
+	}
+	
+	public int getIndiceNodoInOrden(BinaryTree<Integer> tree, int num) {
+		
+		if (tree == null)
+			return -1;
+		
+		
+		
+		return 0;
+	}
+}
