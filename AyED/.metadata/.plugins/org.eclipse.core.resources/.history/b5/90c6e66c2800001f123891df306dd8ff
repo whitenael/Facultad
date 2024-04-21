@@ -74,7 +74,8 @@ public class GeneralTree<T> {
 		System.out.print("First child -> ");
 		System.out.println(ch.get(0).getData());
 		System.out.print("Root -> ");
-		System.out.println(getData());		
+		System.out.println(getData());
+		System.out.println();
 		
 		if (ch.size() > 0) 
 		{

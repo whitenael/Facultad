@@ -67,21 +67,19 @@ public class GeneralTree<T> {
 	
 	public void InOrder() 
 	{
+		
 		if (!hasChildren())
 			return;
 		
-		List<GeneralTree<T>> ch = this.getChildren();	
-		System.out.print("First child -> ");
-		System.out.println(ch.get(0).getData());
-		System.out.print("Root -> ");
-		System.out.println(getData());		
+		List<GeneralTree<T>> children = this.getChildren();			
+		System.out.println(children.get(0));
 		
-		if (ch.size() > 0) 
-		{
-			System.out.println("Rest of the children -> ");
-			for (int i = 1; i < ch.size(); i++) 
-				children.get(i).InOrder();				
-		}
+		for(GeneralTree<T> child : children) {
+			System.out.println(getData());
+			child.InOrder();
+				
+		} 
+		
 	}
 	
 	public void visualize(int depth) {

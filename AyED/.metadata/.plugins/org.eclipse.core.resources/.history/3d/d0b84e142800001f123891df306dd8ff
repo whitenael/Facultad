@@ -70,17 +70,14 @@ public class GeneralTree<T> {
 		if (!hasChildren())
 			return;
 		
-		List<GeneralTree<T>> ch = this.getChildren();	
-		System.out.print("First child -> ");
-		System.out.println(ch.get(0).getData());
-		System.out.print("Root -> ");
-		System.out.println(getData());		
+		List<GeneralTree<T>> ch = this.getChildren();			
+		System.out.println(ch.get(0));
+		System.out.println(getData());
 		
-		if (ch.size() > 0) 
-		{
-			System.out.println("Rest of the children -> ");
-			for (int i = 1; i < ch.size(); i++) 
-				children.get(i).InOrder();				
+		if (ch.size() > 0) {
+			for (int i = 1; i < ch.size(); i++) {		
+				children.get(i).InOrder();			
+			}			
 		}
 	}
 	

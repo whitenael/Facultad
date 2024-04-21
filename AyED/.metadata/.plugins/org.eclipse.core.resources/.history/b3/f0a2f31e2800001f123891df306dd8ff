@@ -11,7 +11,12 @@ public class Ejercicio2 {
 		
 		GeneralTree<Integer> tree = Util.generarArbolGeneral(3, 4);
 		tree.visualize(3);
-		tree.InOrder();
+		
+		Recorridos r = new Recorridos();
+									
+		for (Integer it : r.numerosImparesMayoresPreOrden(tree, 3)) {
+			System.out.println(it);
+		}
 	}
 
 }

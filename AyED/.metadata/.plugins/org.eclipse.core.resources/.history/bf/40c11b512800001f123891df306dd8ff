@@ -11,7 +11,6 @@ public class Ejercicio2 {
 		
 		GeneralTree<Integer> tree = Util.generarArbolGeneral(3, 4);
 		tree.visualize(3);
-		tree.InOrder();
 	}
 
 }

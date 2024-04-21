@@ -71,10 +71,10 @@ public class GeneralTree<T> {
 			return;
 		
 		List<GeneralTree<T>> ch = this.getChildren();	
-		System.out.print("First child -> ");
-		System.out.println(ch.get(0).getData());
-		System.out.print("Root -> ");
-		System.out.println(getData());		
+		System.out.println("First child -> ");
+		System.out.print(ch.get(0));
+		System.out.println("Root -> ");
+		System.out.print(getData());
 		
 		if (ch.size() > 0) 
 		{
