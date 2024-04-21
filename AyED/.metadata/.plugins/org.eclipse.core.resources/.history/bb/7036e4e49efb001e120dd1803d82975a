@@ -1,0 +1,85 @@
+package practica2.ejercicio7;
+
+import practica2.BinaryTree;
+
+public class Arboles {
+
+	private BinaryTree<Integer> tree;
+	
+	public Arboles() {}
+	
+	public Arboles(BinaryTree<Integer> tree) {
+		this.tree = tree;
+	}	
+
+	public BinaryTree<Integer> getTree() {
+		return tree;
+	}
+
+	public void setTree(BinaryTree<Integer> tree) {
+		this.tree = tree;
+	}
+	
+	public boolean isLeftTree(int num) {
+		
+		if (this.tree.isEmpty())
+			return false;
+		
+		BinaryTree<Integer> nodo = buscarNodo(this.tree, num);
+		
+		int lCount = count(nodo.getLeftChild());
+		int rCount = count(nodo.getRightChild());
+		
+		System.out.println("Cantidad de arboles con un solo hijo en el hijo izquierdo: " + lCount);
+		System.out.println("Cantidad de arboles con un solo hijo en el hijo derecho: " + rCount);
+		
+		return lCount > rCount;
+		
+	}
+	
+	 private BinaryTree<T> buscarNodo(BinaryTree<T> nodo, T valor) {
+	        if (nodo == null || nodo.getData() == null) {
+	            return null; // Si el nodo es nulo o no contiene datos, retorna null.
+	        }
+
+	        if (nodo.getData().equals(valor)) {
+	            return nodo; // Si el nodo actual contiene el valor buscado, lo devuelve.
+	        }
+
+	        // Busca en el subárbol izquierdo y derecho recursivamente.
+	        BinaryTree<T> nodoEncontrado = buscarNodoRecursivo(nodo.getLeftChild(), valor);
+	        if (nodoEncontrado == null) {
+	            nodoEncontrado = buscarNodoRecursivo(nodo.getRightChild(), valor);
+	        }
+
+	        return nodoEncontrado; // Retorna el nodo encontrado o null si no se encuentra.
+	    }	
+	
+	private int count(BinaryTree<Integer> node) {
+		
+		if (node == null)
+			return 0;
+		
+		if (node.isLeaf())
+			return 0;
+				
+		if (hasOneChildren(node)) {
+			if (node.hasRightChild())
+				return count(node.getRightChild()) + 1;
+			if (node.hasLeftChild())
+				return count(node.getLeftChild()) + 1;				
+		}
+		
+		return count(node.getRightChild()) + count(node.getLeftChild());		
+	}
+	
+	private boolean hasOneChildren(BinaryTree<Integer> node) {
+		if (!node.isLeaf() && (!node.hasLeftChild() || !node.hasRightChild())) {
+			return true;
+		}
+		
+		return false;
+	}	
+
+	
+}

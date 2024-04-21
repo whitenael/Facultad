@@ -20,13 +20,18 @@ public class Arboles {
 		this.tree = tree;
 	}
 	
-	public boolean isLeftTree() {
+	public boolean isLeftTree(int num) {
 		
 		if (this.tree.isEmpty())
 			return false;
 		
-		int lCount = count(tree.getLeftChild());
-		int rCount = count(tree.getRightChild());
+		BinaryTree<Integer> nodo = buscarNodo(this.tree, num);
+		
+		if (nodo == null)
+			return false;
+		
+		int lCount = count(nodo.getLeftChild());
+		int rCount = count(nodo.getRightChild());
 		
 		System.out.println("Cantidad de arboles con un solo hijo en el hijo izquierdo: " + lCount);
 		System.out.println("Cantidad de arboles con un solo hijo en el hijo derecho: " + rCount);
@@ -34,6 +39,29 @@ public class Arboles {
 		return lCount > rCount;
 		
 	}
+	
+	public BinaryTree<Integer> buscarNodo(BinaryTree<Integer> nodo, int num) {
+		
+		// Si llegamos al fin del arbol y no encontramos el dato
+		if (nodo == null || nodo.getData() == null)
+			return null;
+		
+		// Si encontramos el dato
+		if (nodo.getData() == num) 
+			return nodo;
+		
+		// Si no lo encontramos en el nodo raiz, lo buscamos en el nodo izquierdo
+		BinaryTree<Integer> nb = new BinaryTree<Integer>();
+		if (nodo.hasLeftChild())
+			nb = buscarNodo(nodo.getLeftChild(), num);
+		
+		// Caso contrario, lo continuamos buscando en el derecho
+		if (nb == null && nodo.hasRightChild()) {
+			nb = buscarNodo(nodo.getRightChild(), num);
+		}
+					
+		return nb;		
+	}		
 	
 	private int count(BinaryTree<Integer> node) {
 		

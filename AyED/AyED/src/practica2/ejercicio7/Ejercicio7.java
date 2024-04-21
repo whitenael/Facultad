@@ -12,11 +12,14 @@ public class Ejercicio7 {
 		TreeTraversal<Integer> tt = new TreeTraversal<Integer>();
 		LinkedList<Integer> numList = new LinkedList<Integer>();
 		
-		Arboles arbol = new Arboles(Util.generarArbolAleatorio(6, numList));
+		Arboles arbol = new Arboles(Util.generarArbolAleatorio(6, numList, 10));
 			
 		tt.visualize(arbol.getTree());
 		System.out.println();
-		System.out.println(arbol.isLeftTree()); 
+		//System.out.println(arbol.isLeftTree(20));
+		System.out.println(arbol.buscarNodo(arbol.getTree(), 4).getData());
+		System.out.println(arbol.buscarNodo(arbol.getTree(), 4).getLeftChild());
+		System.out.println(arbol.buscarNodo(arbol.getTree(), 4).getRightChild());
 		
 	}
 }

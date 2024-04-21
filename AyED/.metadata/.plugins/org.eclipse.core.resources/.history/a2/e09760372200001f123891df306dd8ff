@@ -1,0 +1,22 @@
+package practica3.ejercicio2;
+
+import java.util.LinkedList;
+import java.util.List;
+
+import practica3.GeneralTree;
+
+public class Recorridos {
+
+	public List<Integer> numerosImparesMayoresPreOrden(GeneralTree<Integer> tree, Integer n, List<Integer> result) 
+	{
+		if (tree.getData() > n && tree.getData() %2 != 0)
+			result.add(tree.getData());
+
+		List<GeneralTree<Integer>> children = tree.getChildren();		
+		for (GeneralTree<Integer> child : children) {
+			if (child != null)
+				result = numerosImparesMayoresPreOrden(tree, n, result);
+		}
+	}
+
+}

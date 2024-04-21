@@ -1,0 +1,22 @@
+package practica3;
+
+import java.util.List;
+
+public class GeneralTree<T> {
+	
+	private T data;
+	
+	private List<GeneralTree<T>> children;
+	
+	public GeneralTree() {}
+	
+	public GeneralTree(T data) {
+		this.data = data;
+	}
+	
+	public GeneralTree(T data, List<GeneralTree<T>> children) {
+		this.data = data;
+		
+	}
+	
+}

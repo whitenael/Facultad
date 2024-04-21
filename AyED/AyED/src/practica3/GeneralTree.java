@@ -1,0 +1,91 @@
+package practica3;
+
+import java.util.LinkedList;
+import java.util.List;
+
+public class GeneralTree<T> {
+	
+	private T data;
+	
+	private List<GeneralTree<T>> children = new LinkedList<GeneralTree<T>>();
+	
+	public GeneralTree() {}
+	
+	public GeneralTree(T data) {
+		this.data = data;
+	}
+	
+	public GeneralTree(T data, List<GeneralTree<T>> children) {
+		this.data = data;
+		this.children = children;
+	}
+	
+	public T getData() {
+		return data;
+	}
+	
+	public void setData(T data) {
+		this.data = data;
+	}
+
+	public List<GeneralTree<T>> getChildren() {
+		return children;
+	}
+
+	public void setChildren(List<GeneralTree<T>> children) {
+		if (children != null)
+			this.children = children;
+	}
+	
+	public void addChild(GeneralTree<T> child) {		
+		getChildren().add(child);
+	}
+		
+	public boolean isLeaf() {
+		return !hasChildren();
+	}
+	
+	public boolean hasChildren() {
+		return children != null && !children.isEmpty();
+	}
+	
+	public void removeChildren(GeneralTree<T> child) {
+		if (this.hasChildren()) {
+			children.remove(child);
+		}
+	}
+	
+	public void preOrden() {
+		System.out.println(getData());
+		
+		List<GeneralTree<T>> children = this.getChildren();		
+		for(GeneralTree<T> child : children) {
+			if (child != null)
+				child.preOrden();
+		} 		
+	}
+	
+	public void visualize(int depth) {
+	    // Imprimir espacios para representar la profundidad y la estructura del árbol
+	    for (int i = 0; i < depth - 1; i++) {
+	        System.out.print("   |");
+	    }
+
+	    // Imprimir guiones para indicar la profundidad y el nodo actual
+	    if (depth > 0) {
+	        System.out.print("---");
+	    }
+
+	    // Imprimir el dato del nodo actual
+	    System.out.println(getData());
+	    
+	    // Obtener los hijos del nodo actual
+	    List<GeneralTree<T>> children = this.getChildren();
+	    
+	    // Llamar recursivamente a preOrden() para cada hijo
+	    for (GeneralTree<T> child : children) {
+	        if (child != null)
+	            child.visualize(depth + 1); // Incrementar la profundidad para los hijos
+	    } 		
+	}
+}
