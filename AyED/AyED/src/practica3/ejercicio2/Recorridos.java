@@ -26,4 +26,24 @@ public class Recorridos {
 		
 		return result;
 	}
+	
+	public List<Integer> numerosImparesMayoresInOrden(GeneralTree<Integer> tree, Integer n) 
+	{
+		List<Integer> result = new LinkedList<Integer>();
+		return numerosImparesMayoresPreOrdenRecursivo(tree, n, result);
+	}
+	
+	private List<Integer> numerosImparesMayoresRecursivo(GeneralTree<Integer> tree, Integer n, List<Integer> result) 
+	{
+		if (tree.getData() > n && tree.getData() %2 != 0)
+			result.add(tree.getData());
+
+		List<GeneralTree<Integer>> children = tree.getChildren();		
+		for (GeneralTree<Integer> child : children) {
+			if (child != null)
+				result = numerosImparesMayoresPreOrdenRecursivo(child, n, result);				
+		}
+		
+		return result;
+	}
 }
