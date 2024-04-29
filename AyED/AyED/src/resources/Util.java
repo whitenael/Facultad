@@ -1,5 +1,6 @@
 package resources;
 import java.util.LinkedList;
+import java.util.Random;
 
 import practica2.BinaryTree;
 import practica3.GeneralTree;
@@ -15,6 +16,19 @@ public class Util {
 		GeneralTree<Integer> tree = new GeneralTree<Integer>(getRandomNumber(1, 10));
 		for (int i = 0; i < grado; i++) {
 			tree.addChild(generarArbolGeneral(length-1, grado));
+		}		
+		
+		return tree;		
+	}
+	
+	public static GeneralTree<Character> generarArbolGeneral_Character(int length, int grado) 
+	{
+		if (length == 0)
+			return null;
+		
+		GeneralTree<Character> tree = new GeneralTree<Character>(generateRandomCharacter());
+		for (int i = 0; i < grado; i++) {
+			tree.addChild(generarArbolGeneral_Character(length-1, grado));
 		}		
 		
 		return tree;		
@@ -86,5 +100,14 @@ public class Util {
 	public static int getRandomNumber(int min, int max) {
 	    return (int) ((Math.random() * (max - min)) + min);
 	}
+	
+	 public static char generateRandomCharacter() {
+	        Random random = new Random();
+	        // Genera un número aleatorio entre 0 y 25 (para las letras del alfabeto)
+	        int randomNumber = random.nextInt(26);
+	        // Suma el número aleatorio generado al valor Unicode de la letra 'a'
+	        char randomChar = (char) ('a' + randomNumber);
+	        return randomChar;
+	    }
 	
 }
