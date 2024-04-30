@@ -12,9 +12,11 @@ public class Util {
 		if (length == 0)
 			return null;
 
-		GeneralTree<Integer> tree = new GeneralTree<Integer>(getRandomNumber(1, 10));
+		GeneralTree<Integer> tree = new GeneralTree<Integer>(getRandomNumber(1, 4));
 		for (int i = 0; i < grado; i++) {
-			tree.addChild(generarArbolGeneral(length - 1, grado));
+			GeneralTree<Integer> tr = generarArbolGeneral(length - 1, grado);
+			if (tr != null)
+				tree.addChild(tr);
 		}
 
 		return tree;

@@ -3,8 +3,6 @@ package practica3.ejercicio7;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.sun.xml.internal.bind.v2.runtime.reflect.ListTransducedAccessorImpl;
-
 import practica3.GeneralTree;
 
 public class Caminos {
@@ -31,31 +29,31 @@ public class Caminos {
 		if (this.tree == null)
 			return null;
 		
-		List<Integer> list = new ArrayList<Integer>();
-		List<Integer> auxList = new ArrayList<Integer>();
-		auxList.add(this.tree.getData());
+		List<Integer> currentPath = new ArrayList<Integer>();
+		List<Integer> longestPath = new ArrayList<Integer>();
+		
+		longestPath(this.tree, currentPath, longestPath);
 
-		return longestPath(this.tree, list, auxList);
+		return longestPath;
 	}
 	
-	private List<Integer> longestPath(GeneralTree<Integer> tree, List<Integer> list, List<Integer> auxList){
+	private void longestPath(GeneralTree<Integer> tree, List<Integer> currentPath, List<Integer> longestPath){
 		
 		if (tree == null)
-			return null;				
+			return;				
 		
-		for (GeneralTree<Integer> child : tree.getChildren()){
-			
-			if (child == null)
-				break;
-			
-			auxList.add(child.getData());
-			
-			if (auxList.size() > list.size())
-				list = new ArrayList<Integer>(auxList);									
-			
-			return longestPath(child, list, auxList);			
+		currentPath.add(tree.getData());
+		
+		if (currentPath.size() > longestPath.size()) {
+			longestPath.clear();
+			longestPath.addAll(currentPath);
 		}
-					
-		return list;
+		
+		for(GeneralTree<Integer> child : tree.getChildren()) {
+			longestPath(child, currentPath, longestPath);
+		}
+		
+		currentPath.remove(currentPath.size() - 1);
+						
 	}
 }
