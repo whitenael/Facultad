@@ -47,11 +47,15 @@ func CalcularHash(block Block) string {
 // permitiendo así el funcionamiento de una criptodivisa. En otras palabras, el bloque génesis hace posible la creación de una criptomoneda.
 func CrearBloqueGenesis() Block {
 	transaction := Transaction{0, "Genesis", "Genesis", time.Now()}
-	return Block{
-		Hash:        "0000000000000000000000000000000000000000000000000000000000000000",
+	block := Block{
+		PreviousHash: "0000000000000000000000000000000000000000000000000000000000000000",
 		Transaction: transaction,
 		Timestamp:   time.Now(),
 	}
+	
+	block.Hash := CalcularHash(block)
+
+	return block
 }
 
 // creacion de una blockchain a partir de su bloque genesis
@@ -76,4 +80,25 @@ func (bc *Blockchain) AgregarBloque(transaction Transaction) {
 	prevBlock := bc.Blocks[len(bc.Blocks)-1] // accedemos al ultimo bloque actual
 	newBlock := CrearBloque(prevBlock, transaction) // creamos un bloque con los datos de la transaccion y su bloque anterior para mantener la integridad de la blockchain
 	bc.Blocks = append(bc.Blocks, newBlock) // agregamos el bloque a la blockchain
+}
+
+// para validar una blockchain hay que asegurarse de que cada bloque tiene el hash correcto del bloque anterior
+func (bc Blockchain) Validar(){
+
+	for i := 1; i < len(bc); i++ {		
+		currentBlock := bc[i]
+		previousBlock := bc[i-1]
+
+		// recalculamos el hash anterior
+		// recalculamos para validar que el hash verdaderamente hace referencia al bloque referenciado
+		recalculatedHash := CalcularHash(previousBlock)
+
+		// si el bloque actual tiene un hash diferente al recalculado, retornamos false
+		if (currentBlock.PreviousHash != recalculatedHash) {
+			return false
+		}
+	}
+
+	return true
+
 }
