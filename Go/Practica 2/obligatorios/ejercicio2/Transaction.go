@@ -12,8 +12,4 @@ func NewTransaction(amount float64, senderID, receiverID string) Transaction {
 	return Transaction{amount, senderID, receiverID, time.Now()}
 }
 
-func (transaction Transaction) SubmitTransaction(bc *Blockchain){
-	bc.AgregarBloque(transaction)
-}
-
 

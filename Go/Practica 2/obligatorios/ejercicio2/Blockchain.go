@@ -91,6 +91,7 @@ func (bc Blockchain) Validar(){
 
 		// recalculamos el hash anterior
 		// recalculamos para validar que el hash verdaderamente hace referencia al bloque referenciado
+		// esto se hace para verificar que su contenido no ha sido alterado
 		recalculatedHash := CalcularHash(previousBlock)
 
 		// si el bloque actual tiene un hash diferente al recalculado, retornamos false
