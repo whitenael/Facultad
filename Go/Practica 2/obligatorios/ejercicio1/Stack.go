@@ -14,7 +14,7 @@ type Stack[T any] struct {
 }
 
 // definimos los metodos
-func New[T any]() Stack[T] {
+func NewStack[T any]() Stack[T] {
 	return Stack[T]{}
 }
 

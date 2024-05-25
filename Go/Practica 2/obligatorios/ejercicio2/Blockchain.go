@@ -46,14 +46,14 @@ func CalcularHash(block Block) string {
 // El bloque génesis es la plataforma sobre la cual se asientan los subsiguientes bloques que conforman un registro de blockchain,
 // permitiendo así el funcionamiento de una criptodivisa. En otras palabras, el bloque génesis hace posible la creación de una criptomoneda.
 func CrearBloqueGenesis() Block {
-	transaction := Transaction{0, "Genesis", "Genesis", time.Now()}
+	transaction := Transaction{100000000, "coin", "Genesis", time.Now()}
 	block := Block{
 		PreviousHash: "0000000000000000000000000000000000000000000000000000000000000000",
-		Transaction: transaction,
-		Timestamp:   time.Now(),
+		Transaction:  transaction,
+		Timestamp:    time.Now(),
 	}
-	
-	block.Hash := CalcularHash(block)
+
+	block.Hash = CalcularHash(block)
 
 	return block
 }
@@ -77,17 +77,35 @@ func CrearBloque(prevBlock Block, transaction Transaction) Block {
 
 // metodo para agregar un bloque a la blockchain a partir de una transaccion
 func (bc *Blockchain) AgregarBloque(transaction Transaction) {
-	prevBlock := bc.Blocks[len(bc.Blocks)-1] // accedemos al ultimo bloque actual
+	prevBlock := bc.Blocks[len(bc.Blocks)-1]        // accedemos al ultimo bloque actual
 	newBlock := CrearBloque(prevBlock, transaction) // creamos un bloque con los datos de la transaccion y su bloque anterior para mantener la integridad de la blockchain
-	bc.Blocks = append(bc.Blocks, newBlock) // agregamos el bloque a la blockchain
+	bc.Blocks = append(bc.Blocks, newBlock)         // agregamos el bloque a la blockchain
+}
+
+// Metodo que nos devuelve el saldo de nuestra billera dentro del blockchain
+func (bc Blockchain) ObtenerSaldo(wallet Wallet) float64 {
+	var saldo float64
+	for i := 0; i < len(bc.Blocks); i++ {
+		// si enviamos dinero en esta chain, restamos del saldo de nuestra wallet
+		if bc.Blocks[i].Transaction.SenderID == wallet.ID {
+			saldo -= bc.Blocks[i].Transaction.Amount
+		}
+
+		// si recibimos dinero en esta chain, sumamos saldo a nuestra wallet
+		if bc.Blocks[i].Transaction.ReceiverID == wallet.ID {
+			saldo += bc.Blocks[i].Transaction.Amount
+		}
+	}
+
+	return saldo
 }
 
 // para validar una blockchain hay que asegurarse de que cada bloque tiene el hash correcto del bloque anterior
-func (bc Blockchain) Validar(){
+func (bc Blockchain) Validar() bool {
 
-	for i := 1; i < len(bc); i++ {		
-		currentBlock := bc[i]
-		previousBlock := bc[i-1]
+	for i := 1; i < len(bc.Blocks); i++ {
+		currentBlock := bc.Blocks[i]
+		previousBlock := bc.Blocks[i-1]
 
 		// recalculamos el hash anterior
 		// recalculamos para validar que el hash verdaderamente hace referencia al bloque referenciado
@@ -95,7 +113,7 @@ func (bc Blockchain) Validar(){
 		recalculatedHash := CalcularHash(previousBlock)
 
 		// si el bloque actual tiene un hash diferente al recalculado, retornamos false
-		if (currentBlock.PreviousHash != recalculatedHash) {
+		if currentBlock.PreviousHash != recalculatedHash {
 			return false
 		}
 	}

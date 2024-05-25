@@ -42,12 +42,12 @@ func ObtenerMaxKeyMap[T comparable](m map[T]int) (T, int) {
 	return max, maxCount
 }
 
-func Resolver(ingresantes LinkedList[Alumnos]) ([]AlumnosDTO, map[int]int, map[string]int, LinkedList[Alumnos]) {
+func Resolver(ingresantes Stack[Alumnos]) ([]AlumnosDTO, map[int]int, map[string]int, Stack[Alumnos]) {
 
 	barilocheIngresantes := []AlumnosDTO{}
 	yearCount := make(map[int]int)
 	carreraCount := make(map[string]int)
-	var tempList LinkedList[Alumnos]
+	var tempList Stack[Alumnos]
 
 	ingresantes.Iterate(func(ingresante Alumnos) {
 		// Sumamos a un contador los ingresantes de bariloche
@@ -63,7 +63,7 @@ func Resolver(ingresantes LinkedList[Alumnos]) ([]AlumnosDTO, map[int]int, map[s
 
 		// Agregamos a una lista temporal solo los alumnos que presentaron el titulo y retornamos
 		if ingresante.presento_titulo {
-			tempList.PushBack(ingresante)
+			tempList.Push(ingresante)
 		}
 	})
 
@@ -71,17 +71,17 @@ func Resolver(ingresantes LinkedList[Alumnos]) ([]AlumnosDTO, map[int]int, map[s
 }
 
 func main() {
-	ingresantes := NewList[Alumnos]()
+	ingresantes := NewStack[Alumnos]()
 
-	ingresantes.PushBack(Alumnos{"Perez", "Juan", "Bariloche", newDate(10, 5, 2000), true, "APU"})
-	ingresantes.PushBack(Alumnos{"Gomez", "Ana", "Cordoba", newDate(15, 8, 2001), false, "LI"})
-	ingresantes.PushBack(Alumnos{"Lopez", "Luis", "Bariloche", newDate(20, 12, 1999), true, "LS"})
-	ingresantes.PushBack(Alumnos{"Rodriguez", "Maria", "Buenos Aires", newDate(25, 3, 2000), true, "APU"})
+	ingresantes.Push(Alumnos{"Vera", "Manuel", "Bariloche", newDate(10, 5, 2000), true, "APU"})
+	ingresantes.Push(Alumnos{"Gomez", "Ana", "Cordoba", newDate(15, 8, 2001), false, "LI"})
+	ingresantes.Push(Alumnos{"Rodriguez", "Luis", "Bariloche", newDate(20, 12, 1999), true, "LS"})
+	ingresantes.Push(Alumnos{"White", "Walter", "Buenos Aires", newDate(25, 3, 2000), true, "APU"})
 
 	barilocheIngresantes := []AlumnosDTO{}
 	yearCount := make(map[int]int)
 	carreraCount := make(map[string]int)
-	var tempList LinkedList[Alumnos]
+	tempList := NewStack[Alumnos]()
 
 	barilocheIngresantes, yearCount, carreraCount, tempList = Resolver(ingresantes)
 
