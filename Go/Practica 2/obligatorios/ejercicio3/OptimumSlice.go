@@ -104,8 +104,20 @@ func (op *OptimumSlice) Insert(element, position int) int {
 	return element
 }
 
-func (op OptimumSlice) SliceArray() [int]{
-	
+func (op OptimumSlice) SliceArray() []int {
+	if op.IsEmpty() {
+		panic("No se puede procesar un slice vacio.")
+	}
+
+	var arr []int
+
+	for i := 0; i < op.Len(); i++ {
+		for j := 0; j < op.data[i].ocur; j++ {
+			arr = append(arr, op.data[i].num)
+		}
+	}
+
+	return arr
 }
 
 func (op OptimumSlice) ToString() string {

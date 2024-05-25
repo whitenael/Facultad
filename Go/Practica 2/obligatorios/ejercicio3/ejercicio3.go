@@ -22,4 +22,6 @@ func main() {
 	opSlice.Insert(23, 8)
 	fmt.Println(opSlice.ToString())
 
+	fmt.Println(opSlice.SliceArray())
+
 }
