@@ -10,18 +10,27 @@ func main() {
 	opSlice = New(sl)
 	fmt.Println(opSlice.ToString())
 
-	opSlice.Insert(9, 6)
-	fmt.Println(opSlice.ToString())
+	var position int
 
-	opSlice.Insert(9, 6)
-	fmt.Println(opSlice.ToString())
+	for (position >= 0) && (position <= len(sl)) {
 
-	opSlice.Insert(10, 10)
-	fmt.Println(opSlice.ToString())
+		opSlice.Insert(9, position)
+		fmt.Println(opSlice.ToString())
 
-	opSlice.Insert(23, 8)
-	fmt.Println(opSlice.ToString())
+		opSlice = New(sl)
 
-	fmt.Println(opSlice.SliceArray())
+		position++
+	}
+
+	// opSlice.Insert(9, 6)
+	// fmt.Println(opSlice.ToString())
+
+	// opSlice.Insert(10, 10)
+	// fmt.Println(opSlice.ToString())
+
+	// opSlice.Insert(23, 8)
+	// fmt.Println(opSlice.ToString())
+
+	// fmt.Println(opSlice.SliceArray())
 
 }

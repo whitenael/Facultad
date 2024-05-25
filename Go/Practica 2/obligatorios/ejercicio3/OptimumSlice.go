@@ -78,26 +78,67 @@ func (op *OptimumSlice) Insert(element, position int) int {
 		return -1
 	}
 
+	var min float64
+	aux := position
+
+	if position == 0 {
+		newData := make([]OptimumNode, len(op.data)+1)
+
+		newNode := OptimumNode{element, 1}
+		newData[0] = newNode
+
+		copy(newData[1:], op.data[:])
+
+		op.data = newData
+
+		return element
+	}
+
 	for i := 0; i < op.Len(); i++ {
-		if position == 0 {
+
+		min = math.Min(float64(aux), float64(op.data[i].ocur))
+		aux -= int(min)
+
+		if aux == 0 {
 			if element == op.data[i].num {
 				op.data[i].ocur++
 			} else {
-				newData := make([]OptimumNode, len(op.data)+1)
+				diff := math.Abs(float64(op.data[i].ocur) - float64(min))
 
-				copy(newData, op.data[:i])
+				if diff > 0 {
+					newData := make([]OptimumNode, len(op.data)+2)
 
-				newNode := OptimumNode{element, 1}
-				newData[i] = newNode
+					copy(newData, op.data[:i])
 
-				copy(newData[i+1:], op.data[i:])
+					// insertamos el vecino izquierdo
+					ln := OptimumNode{op.data[i].num, int(min)}
+					newData[i] = ln
 
-				op.data = newData
+					// insertamos el nodo
+					newNode := OptimumNode{element, 1}
+					newData[i+1] = newNode
+
+					// insertamos el vecino derecho
+					rn := OptimumNode{op.data[i].num, int(diff)}
+					newData[i+2] = rn
+
+					copy(newData[i+3:], op.data[i+1:])
+
+					op.data = newData
+				} else {
+					newData := make([]OptimumNode, len(op.data)+1)
+
+					copy(newData, op.data[:i+1])
+
+					newNode := OptimumNode{element, 1}
+					newData[i+1] = newNode
+
+					copy(newData[i+2:], op.data[i+1:])
+
+					op.data = newData
+				}
 			}
 			break
-		} else {
-			min := math.Min(float64(position), float64(op.data[i].ocur))
-			position -= int(min)
 		}
 	}
 
