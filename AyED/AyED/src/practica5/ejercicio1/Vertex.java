@@ -22,4 +22,8 @@ public interface Vertex<T> {
 	 * @return
 	 */
 	public int getPosition();
+
+	public void setVisited(boolean visited);
+
+	public boolean isVisited();
 }

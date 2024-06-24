@@ -5,6 +5,7 @@ import tp5.ejercicio1.Vertex;
 public class AdjMatrixVertex<T> implements Vertex<T> {
 	private T data;
 	private int position;
+	private boolean visited;
 	
 	/**
 	 * Constructor del vértices.  Solo se crean desde el grafo.
@@ -24,6 +25,16 @@ public class AdjMatrixVertex<T> implements Vertex<T> {
 
 	public int getPosition() {
 		return position;
+	}
+
+	@Override
+	public void setVisited(boolean visited) {
+		this.visited = visited;
+	}
+
+	@Override
+	public boolean isVisited() {
+		return visited;
 	}
 
 	void setPosition(int position) {

@@ -10,6 +10,7 @@ public class AdjListVertex<T> implements Vertex<T> {
 	private T data;
 	private int position;
 	private List<Edge<T>> edges;
+	private boolean visited;
 	
 	/**
 	 *  Constructor del vértices. Solamente se crean desde el grafo. 
@@ -34,7 +35,16 @@ public class AdjListVertex<T> implements Vertex<T> {
 	public int getPosition() {
 		return this.position;
 	}
-	
+
+	@Override
+	public boolean isVisited() {
+		return visited;
+	}
+
+	public void setVisited(boolean visited) {
+		this.visited = visited;
+	}
+
 	void decrementPosition() {
 		this.position--;
 	}

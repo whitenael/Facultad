@@ -23,6 +23,7 @@ public class AdjMatrixGraph<T> implements Graph<T> {
         maxVertices = maxVert;
         vertices = new ArrayList<>();
         adjMatrix = new int[maxVertices][maxVertices];
+
         // se inicializa la matriz con el valor vacío
         for (int i = 0; i < maxVertices; i++) {
             for (int j = 0; j < maxVertices; j++) {

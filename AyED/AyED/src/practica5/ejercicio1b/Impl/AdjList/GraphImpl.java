@@ -126,4 +126,17 @@ public class GraphImpl<T> implements Graph<T> {
     public int getSize() {
         return this.vertices.size();
     }
+
+    @Override
+    public String toString(){
+        StringBuilder g = new StringBuilder();
+        for(VertexImpl<T> vertex : this.vertices){
+            g.append(vertex.getData()).append(" -> ");
+            for(Edge<T> edge : vertex.getEdges()){
+                g.append(edge.target().getData());
+            }
+            g.append("\n");
+        }
+        return g.toString();
+    }
 }

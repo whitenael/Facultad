@@ -1,11 +1,11 @@
 package tp5.ejercicio1.adjList;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 import tp5.ejercicio1.Edge;
 import tp5.ejercicio1.Graph;
 import tp5.ejercicio1.Vertex;
+import tp5.ejercicio1b.Impl.AdjList.VertexImpl;
 
 /**
  * Implementación del grafo con listas de adyacencias.
@@ -140,5 +140,71 @@ public class AdjListGraph<T> implements Graph<T> {
 	@Override
 	public int getSize() {
 		return this.vertices.size();
+	}
+
+	public String toString(){
+		StringBuilder g = new StringBuilder();
+		for(AdjListVertex<T> vertex : this.vertices){
+			g.append(vertex.getData()).append(" -> ");
+			for(Edge<T> edge : vertex.getEdges()){
+				g.append(edge.getTarget().getData() + ", ");
+			}
+			g.append("\n");
+		}
+		return g.toString();
+	}
+
+	public void setAllUnvisited(){
+		for (Vertex<T> vertex : this.vertices){
+			vertex.setVisited(false);
+		}
+	}
+
+	public List<T> dfs(Vertex<T> start){
+		Deque<Vertex<T>> stack = new LinkedList<>();
+		stack.push(start);
+
+		List<T> vertices = new ArrayList<>();
+
+		while(!stack.isEmpty()){
+			Vertex<T> current = stack.pop();
+			if (!current.isVisited()){
+				((AdjListVertex<T>)current).setVisited(true);
+
+				vertices.add(current.getData());
+
+				List<Edge<T>> edges = ((AdjListVertex<T>) current).getEdges();
+				for(Edge<T> edge : edges){
+					stack.push(edge.getTarget());
+				}
+			}
+		}
+
+		return vertices;
+	}
+
+	public List<T> bfs(Vertex<T> vertex)
+	{
+		Queue<Vertex<T>> queue = new LinkedList<>();
+		queue.add(vertex);
+		List<T> vertices = new ArrayList<>();
+
+		while(!queue.isEmpty()){
+			Vertex<T> current = queue.poll();
+			if (!current.isVisited()){
+
+				((AdjListVertex)current).setVisited(true);
+				vertices.add(current.getData());
+
+				List<Edge<T>> edges = ((AdjListVertex<T>) current).getEdges();
+				for (Edge<T> edge : edges){
+					queue.add(edge.getTarget());
+				}
+
+			}
+
+		}
+
+		return vertices;
 	}
 }
